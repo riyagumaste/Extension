@@ -15,7 +15,19 @@ function isSensitiveField(text) {
         normalizedText.includes(field)
     );
 }
+function isSensitiveInput(element) {
+    const fieldInfo = [
+        element.type,
+        element.name,
+        element.id,
+        element.placeholder,
+        element.autocomplete
+    ].join(" ").toLowerCase();
 
+    return SENSITIVE_FIELDS.some(field =>
+        fieldInfo.includes(field)
+    );
+}
 function extractTransactionData() {
 
     const data = {
@@ -30,6 +42,19 @@ function extractTransactionData() {
 
     const headings = document.querySelectorAll("h1, h2, h3");
     const paragraphs = document.querySelectorAll("p,h2");
+    const inputs = document.querySelectorAll("input");
+
+inputs.forEach((input) => {
+    if (isSensitiveInput(input)) {
+       console.log(
+    "Sensitive input skipped:",
+    input.type,
+    input.name,
+    input.id,
+    input.placeholder
+);
+    }
+});
 
     // Product name
     if (headings.length > 1) {
