@@ -57,9 +57,14 @@ inputs.forEach((input) => {
 });
 
     // Product name
-    if (headings.length > 1) {
-        data.product = headings[1].innerText.trim();
-    }
+    const productHeading = [...headings].find(element =>
+    element.innerText.toLowerCase().includes("wireless") ||
+    element.innerText.toLowerCase().includes("headphones")
+);
+
+if (productHeading) {
+    data.product = productHeading.innerText.trim();
+}
 
     // Extract transaction amounts
     paragraphs.forEach((element) => {
