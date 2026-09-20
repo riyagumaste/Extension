@@ -106,7 +106,7 @@ if (totalElement) {
 
 function extractAmount(text) {
 
-    const match = text.match(/₹\s*([\d,]+)/);
+    const match = text.match(/₹\s*([\d,]+(?:\.\d{1,2})?)/);
 
     if (!match) {
         return null;
