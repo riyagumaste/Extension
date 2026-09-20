@@ -6,7 +6,7 @@ const SENSITIVE_FIELDS = [
     "otp",
     "password",
     "upi pin",
-    "pin"
+    "pin number"
 ];
 function isSensitiveField(text) {
     const normalizedText = text.toLowerCase().trim();
