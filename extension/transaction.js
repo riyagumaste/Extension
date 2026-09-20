@@ -1,3 +1,21 @@
+const SENSITIVE_FIELDS = [
+    "card number",
+    "cardnumber",
+    "cvv",
+    "cvc",
+    "otp",
+    "password",
+    "upi pin",
+    "pin"
+];
+function isSensitiveField(text) {
+    const normalizedText = text.toLowerCase().trim();
+
+    return SENSITIVE_FIELDS.some(field =>
+        normalizedText.includes(field)
+    );
+}
+
 function extractTransactionData() {
 
     const data = {
@@ -22,6 +40,9 @@ function extractTransactionData() {
     paragraphs.forEach((element) => {
 
         const text = element.innerText.trim();
+        if (isSensitiveField(text)) {
+    return;
+}
 
         if (text.includes("Product Price")) {
             data.productPrice = extractAmount(text);
