@@ -56,3 +56,11 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+const checkoutResult = checkCheckout();
+
+if (checkoutResult.detected) {
+    const transaction = extractTransactionData();
+
+    console.log("CHECKOUT DETECTED");
+    console.log("TRANSACTION DATA:", transaction);
+}
