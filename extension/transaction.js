@@ -115,3 +115,7 @@ function extractAmount(text) {
     return Number(match[1].replace(/,/g, ""));
 }
 
+const transactionData = extractTransactionData();
+
+console.log("===== TRANSACTION DATA =====");
+console.log(transactionData);
