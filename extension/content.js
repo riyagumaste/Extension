@@ -48,19 +48,93 @@ function checkCheckout() {
 chrome.runtime.onMessage.addListener(
     (message, sender, sendResponse) => {
 
-        if (message.type === "CHECK_CHECKOUT") {
-
-            const result = checkCheckout();
-
-            sendResponse(result);
+        if (message.type !== "CHECK_CHECKOUT") {
+            return;
         }
+
+        const result = checkCheckout();
+
+        let transaction = null;
+
+        if (result.detected) {
+            transaction = extractTransactionData();
+        }
+
+        sendResponse({
+            detected: result.detected,
+            indicators: result.indicators,
+            transaction: transaction
+        });
+
+        return true;
     }
 );
+
+
+// Automatically detect checkout when the page loads
 const checkoutResult = checkCheckout();
 
 if (checkoutResult.detected) {
+
     const transaction = extractTransactionData();
 
     console.log("CHECKOUT DETECTED");
     console.log("TRANSACTION DATA:", transaction);
+
+    // Prevent duplicate warning banners
+    if (!document.getElementById("transaction-check-warning")) {
+
+        const warning = document.createElement("div");
+
+        warning.id = "transaction-check-warning";
+
+        warning.innerHTML = `
+            <div style="
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 8px;
+            ">
+                🛡️ Transaction Check
+            </div>
+
+            <div style="
+                font-size: 14px;
+                margin-bottom: 8px;
+            ">
+                ⚠️ Checkout page detected
+            </div>
+
+            <div style="
+                font-size: 13px;
+            ">
+                Additional charges:
+                <strong>₹${transaction.additionalCharges ?? 0}</strong>
+            </div>
+
+            <div style="
+                font-size: 12px;
+                margin-top: 8px;
+                opacity: 0.8;
+            ">
+                Open the extension for full transaction details.
+            </div>
+        `;
+
+        warning.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 280px;
+            padding: 16px;
+            background: white;
+            color: #222;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            z-index: 2147483647;
+            font-family: Arial, sans-serif;
+        `;
+
+        document.body.appendChild(warning);
+    }
 }
