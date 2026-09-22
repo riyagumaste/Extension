@@ -1,0 +1,71 @@
+id,text,label
+1,"ONLY 2 LEFT!",Scarcity
+2,"Only 3 items remaining!",Scarcity
+3,"Limited stock available!",Scarcity
+4,"Hurry! Sale ends tonight!",Urgency
+5,"Offer ends in 04:32!",Urgency
+6,"Buy now before the offer expires!",Urgency
+7,"Thousands of customers bought this!",Social_Proof
+8,"Most customers choose this option!",Social_Proof
+9,"Join 10,000 happy customers!",Social_Proof
+10,"You must select this option to continue",Forced_Action
+11,"This option is required to proceed",Forced_Action
+12,"Choose a plan before continuing",Forced_Action
+13,"Cancel your subscription",Obstruction
+14,"You need to go through several steps to cancel",Obstruction
+15,"Manage your subscription settings",Obstruction
+16,"Start your free trial",Sneaking
+17,"Continue with premium features",Sneaking
+18,"Add protection to your purchase",Sneaking
+19,"Choose our recommended option",Misdirection
+20,"Continue with the highlighted plan",Misdirection
+21,"Get the special offer instead",Misdirection
+22,"Wireless Headphones - ₹1499",Non_Dark_Pattern
+23,"Delivery fee: ₹100",Non_Dark_Pattern
+24,"Convenience fee: ₹50",Non_Dark_Pattern
+25,"Tax: ₹80",Non_Dark_Pattern
+26,"Total: ₹1729",Non_Dark_Pattern
+27,"Payment method: Credit Card",Non_Dark_Pattern
+28,"Shipping address",Non_Dark_Pattern
+29,"Order summary",Non_Dark_Pattern
+30,"Your order has been placed",Non_Dark_Pattern
+31,"Only 1 item left in stock!",Scarcity
+32,"Limited quantities available!",Scarcity
+33,"This product is almost sold out!",Scarcity
+34,"Just 2 seats remaining!",Scarcity
+35,"Last few items available!",Scarcity
+
+36,"Hurry! This deal ends soon!",Urgency
+37,"Sale ends in 10 minutes!",Urgency
+38,"Act now to get this price!",Urgency
+39,"Don't miss this offer today!",Urgency
+40,"Order before midnight to save!",Urgency
+
+41,"Over 5,000 shoppers have purchased this!",Social_Proof
+42,"This is a popular choice among customers!",Social_Proof
+43,"Join thousands of satisfied buyers!",Social_Proof
+44,"Most shoppers add this to their cart!",Social_Proof
+45,"Rated highly by our customers!",Social_Proof
+
+46,"You cannot continue without selecting an option",Forced_Action
+47,"Select a payment option to proceed",Forced_Action
+48,"You must accept this option before continuing",Forced_Action
+49,"Please choose one of these options to continue",Forced_Action
+50,"A selection is required before checkout",Forced_Action
+
+51,"Cancellation requires contacting customer support",Obstruction
+52,"To cancel, visit several different settings pages",Obstruction
+53,"You must complete additional steps before cancelling",Obstruction
+54,"Cancellation is only available through account settings",Obstruction
+55,"Contact support to request cancellation",Obstruction
+
+56,"Continue to unlock your premium benefits",Sneaking
+57,"Add extra protection to your order",Sneaking
+58,"Upgrade now to enjoy additional features",Sneaking
+59,"Get more benefits with our recommended package",Sneaking
+60,"Add this service to complete your purchase",Sneaking
+
+61,"Continue with our recommended choice",Misdirection
+62,"Select the highlighted option for the best experience",Misdirection
+63,"Choose the option marked as recommended",Misdirection
+64,"Get our special recommended deal",Misdirection
