@@ -1,14 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+
     <title>Transaction Check</title>
+
+    <style>
+        body {
+            width: 320px;
+            margin: 0;
+            padding: 16px;
+            font-family: Arial, sans-serif;
+            background: #f7f8fa;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: 20px;
+        }
+
+        #status {
+            font-weight: bold;
+            margin-bottom: 14px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .product {
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+        }
+
+        .total {
+            border-top: 1px solid #ddd;
+            margin-top: 12px;
+            padding-top: 12px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .extra {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #fff4d6;
+            font-weight: bold;
+        }
+
+        .privacy {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
 </head>
 
 <body>
-    <h2>Transaction Check</h2>
 
-    <p id="status">Checking page...</p>
+    <h2>🛡️ Transaction Check</h2>
+
+    <p id="status">Analyzing page...</p>
+
+    <div id="transaction" class="card" style="display: none;">
+
+        <div class="product">
+            <span id="product"></span>
+        </div>
+
+        <div class="row">
+            <span>Product</span>
+            <span>₹<span id="productPrice"></span></span>
+        </div>
+
+        <div class="row">
+            <span>Delivery</span>
+            <span>₹<span id="deliveryFee"></span></span>
+        </div>
+
+        <div class="row">
+            <span>Convenience</span>
+            <span>₹<span id="convenienceFee"></span></span>
+        </div>
+
+        <div class="row">
+            <span>Tax</span>
+            <span>₹<span id="tax"></span></span>
+        </div>
+
+        <div class="row total">
+            <span>Total</span>
+            <span>₹<span id="total"></span></span>
+        </div>
+
+        <div class="extra">
+            Additional Charges:
+            ₹<span id="additionalCharges"></span>
+        </div>
+
+        <div class="privacy">
+            ✓ Sensitive payment fields are not displayed.
+        </div>
+
+    </div>
 
     <script src="popup.js"></script>
+
 </body>
 </html>
