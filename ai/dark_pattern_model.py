@@ -65,6 +65,14 @@ print()
 predictions = model.predict(X_test)
 
 accuracy = accuracy_score(y_test, predictions)
+print("Misclassified test examples:")
+
+for text, actual, predicted in zip(X_test, y_test, predictions):
+    if actual != predicted:
+        print("Text:", text)
+        print("Actual:", actual)
+        print("Predicted:", predicted)
+        print()
 
 print("Accuracy:", accuracy)
 print()

@@ -3,9 +3,8 @@
   "name": "Transaction Protection Extension",
   "version": "1.0",
   "description": "Detects checkout pages and analyzes transactions before payment.",
-  "permissions": [
-    "activeTab"
-  ],
+  "permissions": ["activeTab", "tabs"],
+  "host_permissions": ["http://127.0.0.1:5000/*"],
   "action": {
     "default_popup": "popup.html"
   },

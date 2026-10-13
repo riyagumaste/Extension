@@ -113,6 +113,36 @@
 
     </div>
 
+    <!-- AI Analysis Results -->
+    <div id="aiAnalysis" class="card" style="margin-top:14px;">
+        <h3 style="margin-top:0;">🤖 AI Website Analysis</h3>
+
+        <p id="aiStatus">Waiting for AI analysis...</p>
+
+        <div class="row">
+            <span>URL Risk</span>
+            <strong id="urlRisk">-</strong>
+        </div>
+
+        <div style="margin-top:12px;">
+            <strong>Dark Pattern Signals</strong>
+            <ul id="textSignals" style="padding-left:20px;">
+                <li>Waiting for results...</li>
+            </ul>
+        </div>
+
+        <div style="margin-top:12px;">
+            <strong>Screenshot Analysis</strong>
+            <p id="visualSignals" style="font-size:13px;">
+                Screenshot analysis not run.
+            </p>
+        </div>
+
+        <div class="privacy">
+            AI predictions are indicators, not guarantees of website safety.
+        </div>
+    </div>
+
     <script src="popup.js"></script>
 
 </body>
