@@ -1,6 +1,7 @@
 import base64
 import io
 import re
+import platform
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -23,10 +24,14 @@ AI_DIR = BASE_DIR / "ai"
 app = Flask(__name__)
 CORS(app)
 
-# Tesseract OCR location on macOS
-pytesseract.pytesseract.tesseract_cmd = "/opt/homebrew/bin/tesseract"
-
-
+if platform.system() == "Windows":
+    pytesseract.pytesseract.tesseract_cmd = (
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    )
+else:
+    pytesseract.pytesseract.tesseract_cmd = (
+        "/opt/homebrew/bin/tesseract"
+    )
 # -----------------------------
 # 1. Train text detection model
 # -----------------------------
