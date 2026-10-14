@@ -36,7 +36,23 @@ function checkCheckout() {
 }
 
 
-// Respond to the extension popup
+// Get page text without the extension's own warning banner.
+function getCleanPageText() {
+    const clone = document.body.cloneNode(true);
+
+    // Remove the warning banner before sending text to the AI.
+    clone.querySelectorAll("[data-transaction-check-banner]")
+        .forEach(element => element.remove());
+
+    // Exclude scripts, styles, and hidden content.
+    clone.querySelectorAll("script, style, noscript")
+        .forEach(element => element.remove());
+
+    return clone.innerText.slice(0, 50000);
+}
+
+
+// Respond to the extension popup.
 chrome.runtime.onMessage.addListener(
     (message, sender, sendResponse) => {
         if (message.type !== "CHECK_CHECKOUT") {
@@ -53,22 +69,23 @@ chrome.runtime.onMessage.addListener(
             detected: result.detected,
             indicators: result.indicators,
             transaction: transaction,
-
-            // Data for the Python AI backend
             url: window.location.href,
-            pageText: document.body.innerText.slice(0, 50000)
+            pageText: getCleanPageText()
         });
     }
 );
 
 
-// Display the existing checkout warning banner
+// Display the checkout warning banner.
 const checkoutResult = checkCheckout();
 
 if (checkoutResult.detected) {
     const transaction = extractTransactionData();
 
     const warning = document.createElement("div");
+
+    // This marker lets getCleanPageText() exclude the banner.
+    warning.setAttribute("data-transaction-check-banner", "true");
 
     warning.innerHTML = `
         <div style="font-size:18px;font-weight:bold;margin-bottom:8px;">

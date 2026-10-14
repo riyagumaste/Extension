@@ -23,10 +23,8 @@ AI_DIR = BASE_DIR / "ai"
 app = Flask(__name__)
 CORS(app)
 
-# Tesseract OCR location on this computer
-pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-)
+# Tesseract OCR location on macOS
+pytesseract.pytesseract.tesseract_cmd = "/opt/homebrew/bin/tesseract"
 
 
 # -----------------------------

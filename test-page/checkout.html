@@ -1,38 +1,800 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Checkout - Test Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | NovaTech Store</title>
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --background: #f4f6fb;
+            --surface: #ffffff;
+            --text: #182033;
+            --muted: #667085;
+            --border: #e5e7eb;
+            --danger: #dc2626;
+            --success: #15803d;
+            --warning-bg: #fff7ed;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, -apple-system, BlinkMacSystemFont,
+                         "Segoe UI", Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        button, input, select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .topbar {
+            background: #111827;
+            color: white;
+            padding: 15px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+        }
+
+        .brand span {
+            color: #a5b4fc;
+        }
+
+        .secure-label {
+            font-size: 13px;
+            color: #d1fae5;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            margin-bottom: 26px;
+        }
+
+        .intro h1 {
+            margin: 0 0 6px;
+            font-size: 30px;
+        }
+
+        .intro p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .steps {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .step {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 8px 14px;
+            color: var(--muted);
+        }
+
+        .step.active {
+            background: #eef2ff;
+            border-color: #c7d2fe;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.9fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .left-column, .right-column {
+            display: grid;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 23px;
+            box-shadow: 0 5px 20px rgba(16, 24, 40, 0.04);
+        }
+
+        .card h2 {
+            margin: 0 0 18px;
+            font-size: 19px;
+        }
+
+        .section-subtitle {
+            color: var(--muted);
+            font-size: 13px;
+            margin: -12px 0 18px;
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .product-art {
+            width: 105px;
+            height: 105px;
+            flex-shrink: 0;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #e0e7ff, #f5d0fe);
+            display: grid;
+            place-items: center;
+            font-size: 48px;
+        }
+
+        .product-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .product-info h3 {
+            margin: 0 0 5px;
+            font-size: 17px;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .stock-warning {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 9px;
+            border-radius: 7px;
+            color: #b42318;
+            background: #fef2f2;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        .field input, .field select {
+            width: 100%;
+            min-width: 0;
+            padding: 11px 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 9px;
+            background: white;
+            outline: none;
+        }
+
+        .field input:focus, .field select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px #e0e7ff;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 13px;
+            margin-bottom: 10px;
+        }
+
+        .payment-option input {
+            margin-top: 5px;
+            accent-color: var(--primary);
+        }
+
+        .payment-option strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .payment-option small {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary);
+            background: #f5f5ff;
+        }
+
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+
+        .fee-row span:last-child {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .fee-row.muted-row {
+            color: var(--muted);
+        }
+
+        .fee-row.discount {
+            color: var(--success);
+        }
+
+        .fee-divider {
+            border: 0;
+            border-top: 1px solid var(--border);
+            margin: 17px 0;
+        }
+
+        .total-row {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .coupon {
+            display: flex;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .coupon input {
+            flex: 1;
+            min-width: 0;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .secondary-button {
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            padding: 9px 13px;
+            color: var(--primary-dark);
+            background: #eef2ff;
+            font-weight: 700;
+        }
+
+        .addon {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 13px 0;
+            font-size: 13px;
+        }
+
+        .addon input {
+            margin-top: 4px;
+            accent-color: var(--primary);
+        }
+
+        .addon strong {
+            display: block;
+        }
+
+        .addon small {
+            color: var(--muted);
+        }
+
+        .timer-banner {
+            padding: 14px;
+            border-radius: 11px;
+            background: var(--warning-bg);
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            margin-bottom: 18px;
+            font-size: 13px;
+        }
+
+        .timer {
+            font-size: 19px;
+            font-weight: 800;
+            margin-top: 3px;
+        }
+
+        .primary-button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            border: 0;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            font-weight: 800;
+            font-size: 15px;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+        }
+
+        .primary-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .reassurance {
+            text-align: center;
+            margin-top: 13px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .disclosure {
+            padding: 13px;
+            margin-top: 15px;
+            background: #f9fafb;
+            border-radius: 9px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .promo {
+            background: linear-gradient(120deg, #312e81, #4f46e5);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 17px;
+        }
+
+        .promo strong {
+            display: block;
+            font-size: 15px;
+        }
+
+        .promo p {
+            margin: 5px 0 0;
+            font-size: 12px;
+            color: #e0e7ff;
+        }
+
+        .notice {
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px 15px 35px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        #checkoutMessage {
+            display: none;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 9px;
+            background: #ecfdf3;
+            color: #166534;
+            font-size: 13px;
+        }
+
+        @media (max-width: 760px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .right-column {
+                grid-row: 1;
+            }
+
+            .container {
+                margin-top: 22px;
+                padding: 0 13px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .topbar {
+                padding: 14px 18px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .product-art {
+                width: 78px;
+                height: 78px;
+                font-size: 36px;
+            }
+
+            .product {
+                gap: 11px;
+            }
+
+            .price {
+                font-size: 17px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <header class="topbar">
+        <div class="brand">Nova<span>Tech</span></div>
+        <div class="secure-label">🔒 Demo checkout · Test environment</div>
+    </header>
 
-    <h1>Checkout</h1>
+    <main class="container">
+        <section class="intro">
+            <h1>Complete your order</h1>
+            <p>Review your items and charges before placing your order.</p>
 
-    <h2>Wireless Headphones</h2>
+            <div class="steps">
+                <div class="step">✓ Cart</div>
+                <div class="step">2. Delivery</div>
+                <div class="step active">3. Payment</div>
+            </div>
+        </section>
 
-    <p>Product Price: ₹1499</p>
-    <p>Delivery Fee: ₹100</p>
-    <p>Convenience Fee: ₹50</p>
-    <p>Tax: ₹80</p>
+        <div class="checkout-grid">
+            <div class="left-column">
+                <section class="card">
+                    <h2>🛍️ Your item</h2>
 
-    <h2>Total: ₹1729</h2>
+                    <div class="product">
+                        <div class="product-art" aria-hidden="true">🎧</div>
 
-    <p>🔥 ONLY 2 LEFT!</p>
-    <p>⏰ Offer ends in 04:32</p>
+                        <div class="product-info">
+                            <h3>Wireless Headphones</h3>
+                            <div class="muted">NovaSound Pro · Midnight Black</div>
+                            <div class="muted">Quantity: 1 · In stock</div>
 
-    <h3>Payment Details</h3>
+                            <div class="stock-warning">
+                                🔥 ONLY 2 LEFT!
+                            </div>
+                        </div>
 
-    <label>Card Number:</label>
-    <input type="text" placeholder="1234 5678 9012 3456">
+                        <div class="price">₹1499</div>
+                    </div>
+                </section>
 
-    <br><br>
+                <section class="card">
+                    <h2>📦 Delivery information</h2>
+                    <p class="section-subtitle">
+                        Use fictional details for this local test page.
+                    </p>
 
-    <label>CVV:</label>
-    <input type="password" placeholder="123">
+                    <form id="checkoutForm">
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="firstName">First name</label>
+                                <input id="firstName" placeholder="Demo" autocomplete="off">
+                            </div>
 
-    <br><br>
+                            <div class="field">
+                                <label for="lastName">Last name</label>
+                                <input id="lastName" placeholder="Customer" autocomplete="off">
+                            </div>
 
-    <button>PAY NOW</button>
+                            <div class="field full">
+                                <label for="email">Email address</label>
+                                <input id="email" type="email"
+                                       placeholder="demo@example.com" autocomplete="off">
+                            </div>
 
+                            <div class="field full">
+                                <label for="address">Delivery address</label>
+                                <input id="address" placeholder="123 Example Street"
+                                       autocomplete="off">
+                            </div>
+
+                            <div class="field">
+                                <label for="city">City</label>
+                                <input id="city" placeholder="Chennai" autocomplete="off">
+                            </div>
+
+                            <div class="field">
+                                <label for="pincode">PIN code</label>
+                                <input id="pincode" placeholder="600001"
+                                       inputmode="numeric" autocomplete="off">
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="card">
+                    <h2>💳 Payment method</h2>
+                    <p class="section-subtitle">
+                        Demonstration options only. No payment is processed.
+                    </p>
+
+                    <label class="payment-option selected">
+                        <input type="radio" name="payment" value="card" checked>
+                        <span>
+                            <strong>Credit / Debit Card</strong>
+                            <small>Test card fields below are not submitted anywhere.</small>
+                        </span>
+                    </label>
+
+                    <div class="form-grid">
+                        <div class="field full">
+                            <label for="cardNumber">Demo card number</label>
+                            <input id="cardNumber" placeholder="XXXX XXXX XXXX XXXX"
+                                   inputmode="numeric" autocomplete="off">
+                        </div>
+
+                        <div class="field">
+                            <label for="expiry">Expiry date</label>
+                            <input id="expiry" placeholder="MM/YY" autocomplete="off">
+                        </div>
+
+                        <div class="field">
+                            <label for="cvv">CVV</label>
+                            <input id="cvv" type="password" placeholder="XXX"
+                                   autocomplete="off">
+                        </div>
+                    </div>
+
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="upi">
+                        <span>
+                            <strong>UPI</strong>
+                            <small>Simulated payment option</small>
+                        </span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="cod">
+                        <span>
+                            <strong>Cash on Delivery</strong>
+                            <small>Simulated payment option</small>
+                        </span>
+                    </label>
+
+                    <p class="notice">
+                        ⚠️ Never enter real payment credentials on a test page.
+                    </p>
+                </section>
+            </div>
+
+            <aside class="right-column">
+                <section class="card">
+                    <div class="promo">
+                        <strong>✨ Special checkout offer</strong>
+                        <p>Limited-time promotional messaging for dark-pattern testing.</p>
+                    </div>
+
+                    <div class="timer-banner">
+                        ⏰ Offer ends in
+                        <div class="timer" id="countdown">04:32</div>
+                        <span>Demo timer — not a real offer deadline.</span>
+                    </div>
+
+                    <h2>Order summary</h2>
+
+                    <div class="fee-row">
+                        <span>Product Price</span>
+                        <span>₹1499</span>
+                    </div>
+
+                    <div class="fee-row">
+                        <span>Delivery Fee</span>
+                        <span>₹100</span>
+                    </div>
+
+                    <div class="fee-row">
+                        <span>Convenience Fee</span>
+                        <span>₹50</span>
+                    </div>
+
+                    <div class="fee-row">
+                        <span>Tax</span>
+                        <span>₹80</span>
+                    </div>
+
+                    <hr class="fee-divider">
+
+                    <div class="fee-row total-row">
+                        <span>Total</span>
+                        <span>₹1729</span>
+                    </div>
+
+                    <div class="fee-row muted-row">
+                        <span>Additional Charges</span>
+                        <span>₹230</span>
+                    </div>
+
+                    <div class="disclosure">
+                        Additional Charges = delivery + convenience + tax.
+                        All amounts are displayed for testing and are included
+                        in the total above.
+                    </div>
+
+                    <h2 style="margin-top:22px;">Add-ons</h2>
+
+                    <label class="addon">
+                        <input type="checkbox" id="warranty">
+                        <span>
+                            <strong>Extended warranty — ₹199</strong>
+                            <small>Optional protection plan. Not selected by default.</small>
+                        </span>
+                    </label>
+
+                    <label class="addon">
+                        <input type="checkbox" id="giftWrap">
+                        <span>
+                            <strong>Gift wrapping — ₹49</strong>
+                            <small>Optional extra service.</small>
+                        </span>
+                    </label>
+
+                    <label class="addon">
+                        <input type="checkbox" id="insurance">
+                        <span>
+                            <strong>Shipping protection — ₹79</strong>
+                            <small>Optional shipping add-on.</small>
+                        </span>
+                    </label>
+
+                    <div class="coupon">
+                        <input id="coupon" placeholder="Promo code">
+                        <button type="button" class="secondary-button"
+                                id="applyCoupon">Apply</button>
+                    </div>
+
+                    <p id="couponMessage" class="notice" aria-live="polite"></p>
+
+                    <button type="button" class="primary-button" id="payButton">
+                        PAY NOW · DEMO ONLY
+                    </button>
+
+                    <p class="reassurance">
+                        🔒 Local demonstration · No real payment will be made
+                    </p>
+
+                    <div id="checkoutMessage" role="status" aria-live="polite"></div>
+                </section>
+
+                <section class="card">
+                    <h2>Before you pay</h2>
+                    <div class="fee-row">
+                        <span>Product</span>
+                        <span>Wireless Headphones</span>
+                    </div>
+                    <div class="fee-row">
+                        <span>Delivery estimate</span>
+                        <span>3–5 business days</span>
+                    </div>
+                    <div class="fee-row">
+                        <span>Returns</span>
+                        <span>See store policy</span>
+                    </div>
+
+                    <div class="disclosure">
+                        Review all fees and optional add-ons before continuing.
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer">
+        NovaTech Store · Student project test page · No real orders or payments
+    </footer>
+
+    <script>
+        // Demonstration countdown. It does not represent a real deadline.
+        let remainingSeconds = 272;
+
+        function updateCountdown() {
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds % 60;
+
+            document.getElementById("countdown").textContent =
+                `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+            if (remainingSeconds > 0) {
+                remainingSeconds--;
+            } else {
+                // Reset the demo timer so it does not imply a real expired offer.
+                remainingSeconds = 272;
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Demo coupon: no real discount or network request.
+        document.getElementById("applyCoupon").addEventListener("click", () => {
+            const code = document.getElementById("coupon").value.trim();
+            const message = document.getElementById("couponMessage");
+
+            if (code.toUpperCase() === "DEMO10") {
+                message.textContent =
+                    "Demo code recognized. The displayed order total remains unchanged.";
+                message.style.color = "#15803d";
+            } else {
+                message.textContent =
+                    code ? "This demo code is not recognized." : "Enter a demo code to test this field.";
+                message.style.color = "#b42318";
+            }
+        });
+
+        // Highlight the selected payment method.
+        document.querySelectorAll('input[name="payment"]').forEach(input => {
+            input.addEventListener("change", () => {
+                document.querySelectorAll(".payment-option").forEach(option => {
+                    option.classList.remove("selected");
+                });
+
+                input.closest(".payment-option").classList.add("selected");
+            });
+        });
+
+        // Demo-only button: never sends payment information anywhere.
+        document.getElementById("payButton").addEventListener("click", () => {
+            const selectedPayment =
+                document.querySelector('input[name="payment"]:checked');
+
+            const message = document.getElementById("checkoutMessage");
+            message.style.display = "block";
+            message.textContent =
+                `Demo checkout triggered using ${selectedPayment ? selectedPayment.value.toUpperCase() : "no"} payment method. No payment was processed.`;
+        });
+    </script>
 </body>
 </html>
